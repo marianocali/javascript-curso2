@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+
+	<form action="" name = "formulario">
+
+	<p>Adentro de la p.</p>
+	
+	<input type="text">
+	
+	</form>
+
+
+
+
+
+	<script type="text/javascript">
+		/* tipos de datos 
+		primitivos
+		Strings delimitados con "" o ' '
+		Number: 1, 1,3 -5 punto flotante, negativos
+		Boolean:  true o false
+		
+		Objects:
+		Object = delimitados por {}	
+		Array =  delimitados por []
+		Function = function nombre() {
+	
+		}
+
+		Undefined:
+		es una varible que existe en programa pero no tiene un valor asignado.
+		null
+		
+		*/
+		var a = "Horacio";
+		var b = a;
+		b = 1;
+		/* se copia el valor de a por ende al modificarlo no se modifica a*/
+
+		var c = {x:1};
+		var d = c;
+
+		d.x = 10;
+		/* este se pasa por referencia */
+
+		/* Hay que eliminar referencias al variables por referencia ya que al tener 
+		referencias no se puede eliminar de la memoria mientras sea referenciado*/
+
+		/*
+		En todos los lenguajes siempre existe el HEAP y el STACK
+		HEAP:  
+		declaracion de variables, funciones
+		
+		Difiere de los otros lenguajes:
+
+		Antes de empezar a ejecutar todo hace una 1ra recorrida para buscar
+		var : agarra el puntero de la variable, es decir "var a"
+		function: agarra toda la función.
+		Luego toma las funciones y las sube por hoisting al inicio del documento.
+		Quedan las funciones arriba de todo.
+		function f1{
+	
+		}
+
+		function f2{
+	
+		}
+		
+		function fn{
+	
+		}
+
+		var ...
+
+
+		STACK;
+		asignacions de valores
+		ejecuciones en el orden que fueron apareciendo
+		
+		*/
+
+		var array = [1,2,3];
+		var llave = "y";
+		array[llave];	
+
+		/*
+		array[0] retorna 1
+		obj["x"] retorna 1
+		
+		var llave = "y";
+		array[llave];
+		
+		*/
+
+
+		var obj = {x:1, y:2}	
+
+		/*
+		
+		con notacion de punto
+		obj.x retorna
+
+		obj.2 error porque la llave debe ser de tipo String 
+		
+		var llave = "y";
+		obj.llave; //retorna undefined lo busca en el objecto, como no lo encuentra lo crea y lo pone undefined
+		*/
+
+		/*
+		El primer objecto es el objecto
+		window = {}
+		objecto global, todos lo demás esta adentro de este.
+		si hago
+		*/
+		var x = 1;
+		window.innerHeight;
+		window.innerWidth;
+		/* Indirectamente es hacer window.a
+		Se llama asi por la ventana.
+		Podemos encontrar cosas como
+		window.innerHeight
+		window.innerWidth para saber el alto y el ancho de la ventana.
+		Están las métidas las APIS para controlar el mouse, camara,
+		window.open para abrir nuevo tab, cerrar, minimizar, maximizar, ocultar bookmarks, mostrar barra de navegación.
+
+		Una de las apis 
+
+		Json Java Script Object Notation
+		BOM Browser Object Model = Modelo en que js representa al navegador con Json
+		Adentro del BOM hay una api que se carga ques es la api del DOM
+		DOM Document Object Model Es la representación del documento que tenemos abierto.
+		
+		
+		*/
+
+		/*	El motor se llama 8 y compila en browser, servidores y celulares 
+		*/
+
+		
+		var h1 = document.createElement("h1");
+		h1.innerText = "Título H1";
+		h1.style.fontSize= "52px";
+		h1.style.color = "blue";
+		h1.style.backgroundColor = "orange";
+
+
+		var form = document.formulario;
+		form.appendChild(h1);
+
+		console.log(h1);
+		console.dir(h1); // Nos muestra la representación del H1 para JavaScript 
+		
+		/* innerText es el contenido de una texto 
+		Una etiqueta input no tiene cierre.
+		el innerText de un input no puede completarse
+		de cualquier control que tenga texto como un input, textarea, fieldSet, de esto se saca el value.
+		*/
+		var input = document.querySelector("input");
+		//  input.innerText = "mi contenido";	no funciona
+		input.value = "mi contenido";	// le pongo un contenido
+
+
+		/*
+		Hay 3 niveles de ambito:
+		window {
+			document:{
+				node:{	
+					cada atributo que pueda llegar a tener va a estar aca adentro. Ej id, name, className, 
+				}
+			}
+		}
+		BOM = window
+		DOM = document
+		nodo = node
+		*/
+		
+		/************************************************************************
+								Selectores de css 
+		*************************************************************************
+		body {}
+		#id
+		.class
+		etiquetas anidadas
+		body p { 
+			}
+		
+		body > p {
+			todos los hijos directos de p, no los que esten adentro de otro tag
+		}
+		
+		// Pseudo Selectores
+		hover, 
+		input: checked {
+	
+		}
+
+		input [type= "radio"] { toma los radio }
+		Cualquier de estos se puede tomar con un querySelector
+		***********************************************************************
+								Selectores de css 
+		**********************************************************************								
+		*/
+
+		
+		var p = document.querySelector("p");	// Si hay mas de una p trae la primera.
+		console.dir(p); 
+
+		var li = document.querySelectorAll("li");
+		console.dir(li);
+
+
+		/*document.getElementById();
+		document.getElementByClassName();
+		document.getElementByTagName();
+		Son los antiguos
+		*/
+
+		/*************************************** 	Eventos *************************/
+		/*
+		Son atributos o propiedades 
+		Son funciones a las que llamamos fn(callBack) que se ejecutan luego de una determinada acción.
+		No necesariamente hecha por el usuario.
+
+		window.onresize despuès de que la ventana se achique o se agrande se ejecuta una función.
+
+		Los callbacks de un evento tienen que ser solo la definición.
+		No la ejecución.
+		Ej: no puedo hacer eso
+		window.onresize = console.log("hola");  //este se va a ejecutar cuando se abra la ventana y además
+		todas las funciones que no retornan nada, valen undefined.
+		
+		Los eventos de mouse o teclado son los comunes.
+
+		
+
+
+		/***************************************	 Eventos ***********************/
+
+
+	</script>
+</body>
+</html>	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

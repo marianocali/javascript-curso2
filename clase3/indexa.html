@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+
+	<script>
+			var xhr = new XMLHttpRequest();
+			xhr.open('get','texto.txt',true);
+			
+			console.log(xhr.response);
+
+			/*este console log no se visualiza porque la respuesta es asincrónica porque todavía no volvió.
+			Con lo cual luego de que este instanciado y antes de enviarlo hay que asignarle un evento que se dispare una vez que el pedido termina.
+			Así se cuando obtener la respuesta.
+
+			Hay dos 
+			evento 
+			"load" que se dispara cuando el pedido ya termino
+			"readystatechange" cada vez que mi objeto va cambiando de estado.
+			Podes ir pausando y manejando pasos intermedios.
+			En load solo cuando se termino todo. 
+			Si sos freeke podes usar readystatechange para revisar las cabeceras y ver
+			que no haya nada malicioso. Muy avanzado
+			*/
+
+			xhr.addEventListener('load',
+				function()
+				{
+					console.log("Pedido finalizado!");	
+					//aca ya puedo saber si el pedido termino
+					if(xhr.status === 200){
+						document.body.innerText = xhr.response;
+					}
+				});
+
+			// La otra forma de hacerlo
+			xhr.addEventListener('readystatechange',
+				function(e){
+					console.log("readystatechange" + xhr.readyState);
+					if(xhr.readyState == 4 && xhr.status == 200){
+						document.body.innerText = xhr.response;
+					}
+				});
+			
+			/* 
+			El send es lo último que se debe invocar.
+			Porque primero se le asigna el evento listener, con ese listener le estoy diciendo
+			que me avise cuando llegue a destino.
+			Si el evento es readystatechange le digo además que me diga cuando va pasando por 
+			otros lugares, que son los estados.
+			*/
+			xhr.send();	
+			
+
+	/*
+	AJAX 
+
+	ver loupe
+
+	Cuando tenemos una procesamiento que va a demorar se puede mandar a otro stack para que las demas instrucciones no tengan que esperar a que termine
+
+
+	setTimeot : hace que la funcion invocada se ejecute luego de x ms.
+	El tiempo de setTimeot no aseguro el momento de ejecución sino un mínimo tiempo de espera.
+
+	La mayorìa de las cosas son asincronicas en js.
+
+						PEDIDOS ASINCRINICOS A TRAVES DE HTPP
+	var xhr = new XMLHttpRequest()
+	
+	Todos los objectos xhr pueden pasar por 5 estados distintos, los cuales se registran en el atributo
+	readyState
+
+	Estados
+	0 el objeto esta instanciado
+	1 el objecto esta configurado, es decir esta listo para ser enviado
+	2 cabeceras enviadas y recibidas
+	3 Descarga de información
+	4 El pedido esta finalizado. No implica que haya sido resuelto de forma satisfactoria. Ej el servidor estaba apagado.
+
+	HTTP
+	PROTOCOLO web para que una maquina hable con la otra. El estandar es pedido respuesta.
+	Cada pedido debe ser escrito con una sintáxis específica.
+
+	Sintaxis: Verbo URL version
+	Ejemplo GET /index.html HTTP/1.0
+ 
+	Al Verbo tambièn se le llama metodo.
+
+	Respuesta: versión codigo mensaje
+				HTTP/1.0 200 OK
+
+	http estados 
+	100 a 400 son correctos
+	400 en adelante son errores.
+	El 500 es el peor Leer http.
+
+	Además de esto se mandan cabeceras. Algunas se mandan por default.
+	Siempre se mandan por defecto. Casi nunca hay que modificarla.
+
+	CONFIGURAR XHR
+	Para configurar la varible hay que inficar 3 parametros:
+	1)  verbo HTTP 
+	2) URL
+	3) fase: booleano que indica la manera en que se va a realizar el pedido, por defecto es sincrónico.
+	Si le ponemos false, lo convertimos a un pedido sincrónico.
+	Nos va a dar un warning. Porque esta deprecado.
+
+	Ej 
+	xhr.open('get','text.txt')
+	
+	ENVIO
+	Para enviar el pedido usamos el método send
+	xhr.send();		// sale el pedido de mi computadora al servidor
+	
+
+	Para poder procesar el pedido necesitamos un servidor
+	Levantamos un APACHE
+	LAMP o XAMP
+
+	Todas las carpetas hay una url y un document root, es decir la ubicación de la maquina donde estan
+	todos mis archivos
+	Para ver mi sitio en 
+	http://localhost/
+	o en
+	127.0.0.1
+
+	El document root esta en la configuracion en httpd.conf
+
+	http://localhost/clase3/
+
+	De forma nativa siempre vamos a tener respuestas de tipo String
+	Ademas el status del codigo : ej 200 o 404
+	StatusText: OK
+	
+	POST ES MAS SEGURO QUE GET ES UN MITO
+	CADA VERBO FUE USADO PARA UNA COSA DISTINTA.
+
+	GET:  enviar info al servidor o solicitar al servidor sin cambiar nada. Todo lo que esta en el servidor, queda igual. Lo parametros se pasan url.
+	Nos limitamos a transferencia de 1024 K = 1MB
+
+	POST: Sirve para hacer una modificación en el servidor, loguear, agregar un usuario. La idea es que algo en el servidor debería cambiar.
+	Los parametros se mandan en el cuerpo donde hay mas espacio para mandar informacion.
+
+	PUT: sirve para modificar informaciòn al servidor y cambiar completamente un recurso
+
+	PATCH: sirve para cambiar un recurso, pero solamente una parte.
+
+	DELETE: borrar un recurso.
+
+	*/
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+	<button>Enviar</button>
+	
+	<script src= "script.js"></script>
+	
+
+	<!-- Todas las funciones sin retornose transforman en undefined 
+
+	La definición de una función es mencionar su puntero, pero sin ejecutarla.
+
+	Podemos crear nuestras propias funciones.
+	function bar(){
+	console.log(' hola');
+	}
+
+	.onclick = bar;
+
+	funciones anonimas, son funciones que no tienen puntero, no tienen nombre, se escribe toda su definición
+
+	.onclick 0 function
+
+	.onclick = function(){
+		console.log("hola");
+	}
+
+	Si se agrega un evento onclick y luego otro evento onclick se pisa el anterior. 
+	Entonces hay que tener cuidado, porque se toma el último.
+
+	Pero tambièn podemos agregar eventos  a un tag.
+
+	bt.addEventListener()
+	bt.addEventListener()
+	bt.addEventListener()
+
+	bt.addEventListener() le puede pasar 3 parametros:
+	a) el tipo de evento Ej 'click', 'submit', 'focus'
+	b) la funcion que queres ejecutar, puede ser funcion anonima
+	c) booleano que determina la fase del evento.
+
+	Fase de un evento
+	* bubbling (default) cada evento se va a disparar en su elemento y va a ir subiendo en jerarquía por sus nodos padres disparando eventos del mismo tipo.
+	
+	Al elemento que suele originar el evento se le llama target.
+
+	* Capturing: es lo opuesto.
+	En vez de disparar los eventos desde sus padres hasta el nodo target.
+
+	cuerpo.addEventListener('click', function(){
+	console.log('hola body');
+}, true);
+
+	No esta bueno hacer fases, por eso hay forma de cancelar las fases.
+
+	El hecho de poner un booleano nos da mas posibilidades.
+
+	Todos los callback reciben un objeto
+	en chrome se llama event
+
+	En firefox o Safari se usa el nombre que le damos nosotros al evento
+
+	El atributo mas importante es el target.
+	En nuestro caso el boton.
+	El target nunca cambia.
+
+	Cuando se crea un elemento que se crea en forma dinámica, para asignarle un evento, si se le  agrega a ese elemento falla porque no esta definido.
+	Se le asigna a un nodo padre que no es creado dinámicamente.
+
+	Ahora puedo agregar varios listener al document, 
+	pero el target me va a decir quien es el que disparó el evento. 
+	Ej en que boton se hizo click.
+	Entonces a partir de esto sabemos que se invocó y que debería hacerse.
+
+	console.dir(event.target);	muestra quien disparo el evento.
+
+	DETENER LA PROPAGASION DE FASES,
+	event.stopPropagation();	
+
+	ANEXO:
+	var a = 'h';
+	cada letra representada en js nos podemos saber su unicode en html.
+	
+	cada String sabe su propio codigo unicode
+	a.chartCodeAt() 
+	nos retorna el unicode
+
+	0 = 48
+	9 = 57
+	A = 65
+	Z = 90
+	a = 97
+	z = 122
+
+	Podemos hacer una validación alfanumércia-
+
+	ANEXO 2
+	Un String se puede iterar usando length = longitud
+
+	Tiene comportamiento simil array
+	var cad = "hola";
+	cad.legth; = 4
+	cad[0]; = 'h'; 
+	
+	
+
+	-->
+
+
+
+</body>
+</html>
