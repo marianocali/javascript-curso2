@@ -3,12 +3,20 @@
 window.addEventListener("load", funcion_inicial,false);
 
 
-
-// Esta función deberá ir invocando a las demás validaciones
+// Agrega las validaciones de cada elemento luego que se carga la página
 function funcion_inicial(){
-	console.log('funcion_inicial');
 	agregarEventoOnBlurNombre();
 	agregarEventoOnBlurEmail();
+	agregarEventoOnBlurMensaje();
+	agregarEventoSubmitForm();
+
+}
+
+// se toma el form y se cambia el sumbit para que se valide
+//antes de enviarse
+function agregarEventoSubmitForm(){
+	var form = document.querySelector('form');
+	form.addEventListener('submit',validarForm);
 }
 
 function agregarEventoOnBlurNombre(){
@@ -17,19 +25,6 @@ function agregarEventoOnBlurNombre(){
 
 	//se le asigna al evento blur la funcion validarNombre
 	nombre.addEventListener("blur", validarNombre);
-}
-
-function validarNombre(){
-	var nombre = document.querySelector('input');
-	console.log(nombre.value);
-	if(nombre.value.length < 4){
-		//nombre.addClass("error");
-		nombre.className += " error";
-	}
-	else{
-		nombre.className += " ok";	
-	}
-
 }
 
 function agregarEventoOnBlurEmail(){
@@ -41,39 +36,90 @@ function agregarEventoOnBlurEmail(){
 	email.addEventListener("blur", validarEmail);
 }
 
+function agregarEventoOnBlurMensaje(){
+	//se obtiene el tag html nombre
+	var mensaje = document.querySelector('textarea');
+
+	//se le asigna al evento blur la funcion validarNombre
+	mensaje.addEventListener("blur", validarMensaje);
+}
+
+
+/******************************************************************************/
+/*										VALIDACIONES 		*/			
+/******************************************************************************/
+
+function validarNombre(){
+	var nombre = document.querySelector('input');
+	console.log(nombre.value);
+	if (esNombreValido(nombre)){
+		//nombre.addClass("error");
+		nombre.classList.add('ok');
+		nombre.classList.remove('error');
+	}
+	else{
+		nombre.classList.add('error');
+		nombre.classList.remove('ok');
+	}
+}
+
+function esNombreValido(nombre){
+	return (nombre.value.length > 4 && isNaN(nombre.value));
+}
+
 function validarEmail(){
 	var inputs = document.querySelectorAll('input');
 	var email= inputs[1];
 
-	if(isEmailValido(email)){
-		email.className += " ok";
+	if(esEmailValido(email)){
+		email.classList.remove('error');
+		email.classList.add('ok');
 	}
 	else
 	{
-		email.className += " error";
+		email.classList.remove('ok');
+		email.classList.add('error');
 	}
 }
 
-function ValidateEmail(mail)   
-{  
-	if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.emailAddr.value))  
-	{  
-		return (true)  
-	}  
-	alert("You have entered an invalid email address!")  
-	return (false)  
-} 
+function validarMensaje(){
+	//se obtiene el tag html nombre
+	var mensaje = document.querySelector('textarea');
+	
+	if(isMensajeValido(mensaje)){
+		mensaje.classList.remove('error');
+		mensaje.classList.add('ok');		
+	}	
+	else{
+		mensaje.classList.remove('ok');
+		mensaje.classList.add('error');
+	}
+}
 
-//valida un email usando expresion regular que analiza que tenga la @ 
-function isEmailValido(email) {
-	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	return re.test(email);
-} 
+//Al salir del área mensaje verificar si el mismo no está vacío y si es menor a 200 caracteres...
+function isMensajeValido(mensaje){
+	let longitud = mensaje.value.length;
+	return (longitud > 0 && longitud < 200);
+}
 
 
+//Valida un email usando expresiones regulares
+function esEmailValido(email) {
+    var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    console.dir(re);
+    var esValido = re.test(email.value);
+    return esValido;
+}
 
+/******************
+VALIDACION DEL FORMULARIO
+*****************/
+function validarForm(){
+	event.preventDefault(); //evita que el form se submitee
+	
 
-
+	//return false;
+}
 
 
 
