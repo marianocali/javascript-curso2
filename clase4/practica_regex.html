@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<form  action="http://www.google.com" method="get" >
+	
+		
+		
+
+
+	<input type="text" name="file">
+	
+	<input type="button" name="enviar" value="Validar" onclick="validarText()">
+	
+	</form>
+
+
+	<script type="text/javascript">
+		
+		function validarText(){
+			var texto = document.querySelector('input').value;
+
+			if(esTextoValido(texto)){
+				console.dir('esValido');
+			}
+			else
+			{
+				console.dir('inValido');
+			}
+		}
+
+		//Valida un email usando expresiones regulares
+		function esTextoValido(texto) {
+		    
+			console.dir(texto);
+		    //let re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+		    let re = /^.$/i
+		    // console.dir(re);
+		    let esValido = re.test(texto);
+		    return esValido;
+		}
+
+	</script>
+
+</body>
+</html>
