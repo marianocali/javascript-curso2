@@ -84,7 +84,7 @@ function validarEmail(){
 
 function validarMensaje(){
 	//se obtiene el tag html nombre
-	var mensaje = document.querySelector('textarea');
+	let mensaje = getMensaje();
 	
 	if(isMensajeValido(mensaje)){
 		mensaje.classList.remove('error');
@@ -96,6 +96,10 @@ function validarMensaje(){
 	}
 }
 
+function getMensaje(){
+	return document.querySelector('textarea');
+}
+
 //Al salir del área mensaje verificar si el mismo no está vacío y si es menor a 200 caracteres...
 function isMensajeValido(mensaje){
 	let longitud = mensaje.value.length;
@@ -105,9 +109,9 @@ function isMensajeValido(mensaje){
 
 //Valida un email usando expresiones regulares
 function esEmailValido(email) {
-    var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    let re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
     console.dir(re);
-    var esValido = re.test(email.value);
+    let esValido = re.test(email.value);
     return esValido;
 }
 
@@ -116,12 +120,24 @@ VALIDACION DEL FORMULARIO
 *****************/
 function validarForm(){
 	event.preventDefault(); //evita que el form se submitee
-	
+	let claseMsg = document.querySelector('textarea').classList[0];
+	var f = document.querySelector("form");
 
-	//return false;
+	if(esFormularioValido(claseMsg)){
+		window.setTimeout(function() { f.submit(); },2000);
+	}else{
+		return false;
+	}
 }
 
-
+function esFormularioValido(claseMsg){
+	if (isMensajeValido(getMensaje())){
+		return true;
+	}
+	else
+		return false;
+	//return claseMsg == "ok";
+}
 
 
 
